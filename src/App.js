@@ -11,10 +11,6 @@ const container = {
 };
 function App() {
   const sdkRef = useRef(null);
-
-  useLayoutEffect(() => {}, []);
-
-  const handleClick = () => {};
   const handleSdkLoaded = () => {
     const sdkKey =
       "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZGsiLCJqdGkiOiI0YWEyNGZlNS0yZThmLTRiNzUtOWRiYi00OTlmYjZkYmJhYjQiLCJpYXQiOjE2NDYzODM2NTl9.AmakuxSejgxaQfhDBS4PUvFORktmvHPvLhPHdrLAChQ";
