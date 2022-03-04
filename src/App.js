@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useRef, useLayoutEffect } from "react";
+const style = {
+  height: "90vh",
+  width: "100%",
+  borderWidth: "0px",
+};
+const container = {
+  height: "90vh",
+  width: "100%",
+  borderWidth: "1px",
+};
 function App() {
+  const sdkRef = useRef(null);
+
+  useLayoutEffect(() => {}, []);
+
+  const handleClick = () => {};
+  const handleSdkLoaded = () => {
+    const sdkKey =
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZGsiLCJqdGkiOiI0YWEyNGZlNS0yZThmLTRiNzUtOWRiYi00OTlmYjZkYmJhYjQiLCJpYXQiOjE2NDYzODM2NTl9.AmakuxSejgxaQfhDBS4PUvFORktmvHPvLhPHdrLAChQ";
+    const message = JSON.stringify({
+      sdkUrl: "SDK_URL",
+      sdkKey: sdkKey,
+      verifierID: "sasasas",
+      message: "Message",
+      notification: "Message",
+      customData: { name: "Name" },
+    });
+    sdkRef.current.contentWindow.postMessage(
+      { message: "onInit", value: message },
+      "*"
+    );
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={container}>
+      <div>
+        <iframe
+          onLoad={handleSdkLoaded}
+          ref={sdkRef}
+          style={style}
+          src={`http://localhost:3000/`}
+        ></iframe>
+      </div>
     </div>
   );
 }
