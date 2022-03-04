@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useEffect } from "react";
 const style = {
   height: "90vh",
   width: "100%",
@@ -9,8 +9,30 @@ const container = {
   width: "100%",
   borderWidth: "1px",
 };
+const h2 = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: "#0c3160"
+}
 function App() {
   const sdkRef = useRef(null);
+  const receiveSdkMessage = (event) => {
+    const message = event?.data?.message; 
+    switch (message) {
+      case "onClose":
+        console.log("onClose data ", event?.data)
+        break;
+          case "onError":
+           console.log("onClose data ", event?.data)
+        break;
+      default:
+        console.log("No event found iFrame");
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("message", receiveSdkMessage, false);
+  }, []);
   const handleSdkLoaded = () => {
     const sdkKey =
       "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZGsiLCJqdGkiOiI0YWEyNGZlNS0yZThmLTRiNzUtOWRiYi00OTlmYjZkYmJhYjQiLCJpYXQiOjE2NDYzODM2NTl9.AmakuxSejgxaQfhDBS4PUvFORktmvHPvLhPHdrLAChQ";
@@ -30,6 +52,9 @@ function App() {
   return (
     <div style={container}>
       <div>
+      <h2 style={h2}>
+        SDK client
+      </h2>
         <iframe
           onLoad={handleSdkLoaded}
           ref={sdkRef}
